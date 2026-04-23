@@ -1,0 +1,61 @@
+@import 'dashboard.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional custom styles */
+@layer base {
+    body {
+        font-family: 'Figtree', sans-serif;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150;
+    }
+
+    .member-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .member-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .member-card:active {
+        transform: scale(0.98);
+    }
+
+    .view-details-btn {
+        transition: all 0.3s ease;
+    }
+
+    .view-details-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .view-details-btn:active {
+        transform: translateY(0);
+    }
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+    .responsive-padding {
+        @apply px-3 py-2;
+    }
+}
+
+@media (min-width: 641px) {
+    .responsive-padding {
+        @apply px-6 py-4;
+    }
+}

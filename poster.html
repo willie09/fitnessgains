@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fitness Gains Site - Project Poster</title>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net" />
+        <link
+            href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+            * {
+                font-family: 'Outfit', sans-serif;
+            }
+
+            /* Custom Animations */
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0px) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-20px) rotate(2deg);
+                }
+            }
+
+            @keyframes float-delayed {
+                0%,
+                100% {
+                    transform: translateY(0px) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-25px) rotate(-2deg);
+                }
+            }
+
+            @keyframes pulse-glow {
+                0%,
+                100% {
+                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+                }
+                50% {
+                    box-shadow:
+                        0 0 50px rgba(34, 197, 94, 0.6),
+                        0 0 100px rgba(6, 182, 212, 0.3);
+                }
+            }
+
+            @keyframes gradient-shift {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes shimmer {
+                0% {
+                    transform: translateX(-100%);
+                }
+                100% {
+                    transform: translateX(100%);
+                }
+            }
+
+            @keyframes border-glow {
+                0%,
+                100% {
+                    border-color: rgba(34, 197, 94, 0.3);
+                }
+                50% {
+                    border-color: rgba(6, 182, 212, 0.6);
+                }
+            }
+
+            .float-animation {
+                animation: float 4s ease-in-out infinite;
+            }
+            .float-animation-delayed {
+                animation: float-delayed 5s ease-in-out infinite;
+                animation-delay: 1s;
+            }
+            .pulse-glow {
+                animation: pulse-glow 3s ease-in-out infinite;
+            }
+
+            .gradient-animate {
+                background-size: 200% 200%;
+                animation: gradient-shift 8s ease infinite;
+            }
+
+            .shimmer-effect::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent
+                );
+                animation: shimmer 3s infinite;
+            }
+
+            .glassmorphism {
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .glassmorphism-card {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            /* Custom Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #0f172a;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(180deg, #10b981, #06b6d4);
+                border-radius: 4px;
+            }
+
+            /* Gradient Text */
+            .text-gradient {
+                background: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #3b82f6 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            /* Background Pattern */
+            .bg-pattern {
+                background-image:
+                    radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                    radial-gradient(
+                        circle at 40% 80%,
+                        rgba(59, 130, 246, 0.08) 0%,
+                        transparent 50%
+                    ),
+                    radial-gradient(circle at 60% 60%, rgba(168, 85, 247, 0.05) 0%, transparent 40%);
+            }
+
+            /* Card Hover Effects */
+            .feature-card {
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            .feature-card:hover {
+                transform: translateY(-10px) scale(1.02);
+            }
+            .feature-card:hover .card-glow {
+                opacity: 1;
+            }
+
+            /* Button Hover */
+            .btn-glow {
+                position: relative;
+                overflow: hidden;
+            }
+            .btn-glow::after {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+                transform: scale(0);
+                transition: transform 0.5s;
+            }
+            .btn-glow:hover::after {
+                transform: scale(1);
+            }
+
+            /* Tech Badge */
+            .tech-badge {
+                position: relative;
+                overflow: hidden;
+            }
+            .tech-badge::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent
+                );
+                transition: left 0.5s;
+            }
+            .tech-badge:hover::before {
+                left: 100%;
+            }
+
+            /* Print-specific styles to prevent margin expansion when converting to JPG */
+            @media print {
+                body {
+                    min-height: auto !important;
+                    height: auto !important;
+                    overflow: visible !important;
+                }
+                
+                .flex-grow {
+                    flex-grow: 0 !important;
+                }
+
+                section {
+                    padding-top: 2rem !important;
+                    padding-bottom: 2rem !important;
+                    margin-top: 0 !important;
+                    margin-bottom: 0 !important;
+                }
+
+                #features {
+                    padding-top: 2rem !important;
+                    padding-bottom: 2rem !important;
+                }
+
+                .fixed {
+                    display: none !important;
+                }
+
+                * {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+            }
+        </style>
+    </head>
+    <body
+        class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen flex flex-col overflow-x-hidden bg-pattern"
+    >
+        <!-- Animated Background Orbs -->
+        <div class="fixed inset-0 overflow-hidden pointer-events-none">
+            <div
+                class="absolute top-20 left-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl float-animation"
+            ></div>
+            <div
+                class="absolute top-40 right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl float-animation-delayed"
+            ></div>
+            <div
+                class="absolute bottom-20 left-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl float-animation"
+                style="animation-delay: 2s"
+            ></div>
+            <div
+                class="absolute bottom-40 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl float-animation-delayed"
+                style="animation-delay: 1.5s"
+            ></div>
+        </div>
+
+        <!-- nav bar section -->
+        <nav class="relative z-10">
+            <div
+                class="max-w-7xl mx-auto px-4 sm:px-6 md:px-6 flex items-center justify-between py-4 sm:py-5"
+            >
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <div
+                        class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg pulse-glow relative"
+                    >
+                        <svg
+                            class="w-7 h-7 sm:w-8 sm:h-8 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"
+                            ></path>
+                        </svg>
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-2xl blur opacity-30 animate-pulse"
+                        ></div>
+                    </div>
+                    <span class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                        <span class="text-gradient">Fitness Gain$</span>
+                    </span>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <div
+                        class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"
+                        style="animation-delay: 0.3s"
+                    ></div>
+                    <div
+                        class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+                        style="animation-delay: 0.6s"
+                    ></div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div
+            class="relative z-10 max-w-7xl mx-auto px-6 py-4 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center flex-grow"
+        >
+            <!-- Left Content -->
+            <div class="space-y-8 order-2 lg:order-1">
+                <div class="space-y-5">
+                    <!-- Badge -->
+                    <div
+                        class="inline-flex items-center px-5 py-2.5 bg-emerald-500/10 border border-emerald-400/20 rounded-full backdrop-blur-sm"
+                    >
+                        <span class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></span>
+                        <span class="text-emerald-300 text-sm font-medium"
+                            >Project Showcase 2026</span
+                        >
+                    </div>
+
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight"
+                    >
+                        Transform Your
+                        <br />
+                        <span class="text-gradient">Fitness Business</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-xl">
+                        A comprehensive
+                        <span class="text-emerald-400 font-semibold"
+                            >Fitness Center Management System</span
+                        >
+                        built with Laravel. Seamlessly manage members, track progress, plan
+                        workouts, and scale your business.
+                    </p>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-6 sm:gap-8 pt-6 sm:pt-10 border-t border-white/10">
+                    <div class="text-center group">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient mb-1">
+                            9
+                        </div>
+                        <div class="text-gray-400 text-sm font-medium">Key Features</div>
+                    </div>
+                    <div class="text-center group">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient mb-1">
+                            9
+                        </div>
+                        <div class="text-gray-400 text-sm font-medium">Tech Stack</div>
+                    </div>
+                    <div class="text-center group">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient mb-1">
+                            10
+                        </div>
+                        <div class="text-gray-400 text-sm font-medium">DB Models</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Content - Hero Image -->
+            <div class="relative order-1 lg:order-2">
+                <div class="relative z-10 float-animation">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img
+                            src="https://img.freepik.com/premium-vector/young-man-shows-off-muscles-he-has-been-working-fitness-room-healthy-active-lifestyle-flat-style-cartoon-illustration-vector_610956-762.jpg?w=740"
+                            alt="Fitness Illustration"
+                            class="w-full max-w-lg mx-auto rounded-xl transform hover:scale-105 transition-transform duration-500"
+                        />
+
+                        <!-- Overlay Gradient -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"
+                        ></div>
+                    </div>
+                </div>
+
+                <!-- Decorative Ring -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-emerald-500/20 rounded-full -z-10"
+                ></div>
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-cyan-500/10 rounded-full -z-10"
+                ></div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section id="features" class="relative z-10 py-4">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Section Header -->
+                <div class="text-center mb-16 sm:mb-20">
+                    <div
+                        class="inline-flex items-center px-4 py-2 bg-cyan-500/10 border border-cyan-400/20 rounded-full backdrop-blur-sm mb-6"
+                    >
+                        <span class="w-2 h-2 bg-cyan-400 rounded-full mr-2 animate-pulse"></span>
+                        <span class="text-cyan-300 text-sm font-medium">Core Functionality</span>
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
+                        Powerful Features for
+                        <span class="text-gradient">Fitness Management</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                        Everything you need to manage a fitness center efficiently with cutting-edge
+                        tools and comprehensive functionality.
+                    </p>
+                </div>
+
+                <!-- Features Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- Feature 1 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-emerald-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-emerald-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Member Management</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Register and manage member profiles, including personal details,
+                                membership types, and trainer assignments.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-cyan-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-cyan-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Progress Tracking</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Track member progress with entries for weight, body fat percentage,
+                                BMI, and workout performance notes.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-blue-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Report Generation</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Generate PDF reports for dashboard analytics and member progress
+                                summaries.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Workout Planning</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Create and manage custom workout routines, exercise libraries, and
+                                scheduled workout sessions for members.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-pink-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-pink-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Attendance System</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Track member walk-ins and attendance.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-red-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-red-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Sales & Inventory</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Manage product sales, track inventory levels, and handle retail
+                                operations for fitness supplements and merchandise.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+
+                    <!-- Feature 7 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-orange-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Financial Management</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Track revenues, expenses, and generate financial reports for
+                                profitable business insights.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+
+                   
+
+                    <!-- Feature 9 -->
+                    <div
+                        class="feature-card group relative glassmorphism-card rounded-2xl p-8 hover:border-green-400/30 transition-all duration-300"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                        ></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-green-500/20"
+                            >
+                                <svg
+                                    class="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">AI-Powered Chatbot</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Provide 24/7 member support with an intelligent AI chatbot powered by
+                                OpenAI for instant assistance.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-teal-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech" class="relative z-10 py-20 sm:py-28 bg-slate-900/50">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Section Header -->
+                <div class="text-center mb-16 sm:mb-20">
+                    <div
+                        class="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-400/20 rounded-full backdrop-blur-sm mb-6"
+                    >
+                        <span class="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></span>
+                        <span class="text-purple-300 text-sm font-medium">Technology Stack</span>
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
+                        Built with
+                        <span class="text-gradient">Modern Tech</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                        Built with modern technologies and best practices for robust, scalable
+                        fitness management.
+                    </p>
+                </div>
+
+                <!-- Tech Stack Grid -->
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >Laravel (PHP Framework)</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >MySQL (Database)</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >HTML/CSS/JavaScript</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >Tailwind CSS</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-pink-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >Vite (Build Tool)</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-red-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >DomPDF (PDF Generation)</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >OpenAI API (Chatbot)</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-yellow-500 to-green-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-yellow-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >Composer (Dependency Mgmt)</span
+                    >
+                    <span
+                        class="tech-badge px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                        >NPM (Node Package Manager)</span
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer
+            class="relative z-10 bg-slate-950/80 backdrop-blur-sm border-t border-slate-800/50 py-12 sm:py-16 mt-auto"
+        >
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-10">
+                    <!-- Brand -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-xl flex items-center justify-center"
+                            >
+                                <svg
+                                    class="w-6 h-6 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-white"
+                                ><span class="text-gradient">Fitness Gain$</span></span
+                            >
+                        </div>
+                       
+                    </div>
+
+                <!-- Bottom Footer -->
+                    <div
+                        class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+                    >
+                        
+                        <p class="text-gray-400 text-sm">
+                            <h1 class="text-gradient">Developed by: Willie S. Sardido</h1>
+                        </p>
+
+                    </div>
+                     <div
+                        class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+                    >
+                     
+                        <p class="text-gray-400 text-sm mt-2">
+                            Groupmates: Vincent Jaye Alcazar, Jesiebel Eddie, and Leah Ybanez
+                        </p>
+                    </div>
+            </div>
+        </footer>
+    </body>
+</html>

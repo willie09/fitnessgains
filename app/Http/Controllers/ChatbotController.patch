@@ -1,0 +1,126 @@
+{
+        $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+
+        $message = $request->input('message');
+        Log::info('Chatbot request received', ['message' => $message]);
+
+        try {
+            $apiKey = env('GEMINI_API_KEY');
+            if (!$apiKey) {
+                Log::error('Gemini API key not configured');
+                return response()->json(['reply' => 'I\'m experiencing some technical difficulties right now. Please try again later.']);
+            }
+
+            $response = Http::post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' . $apiKey, [
+                'contents' => [
+                    [
+                        'parts' => [
+                            [
+                                'text' => 'You are a helpful fitness coach AI for gym members. Keep responses concise and focused on fitness advice. ' . $message
+                            ]
+                        ]
+                    ]
+                ],
+                'generationConfig' => [
+                    'maxOutputTokens' => 300,
+                    'temperature' => 0.7,
+                ]
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? 'Sorry, I couldn\'t generate a response right now.';
+            } else {
+                $errorData = $response->json();
+                Log::error('Gemini API error', ['status' => $response->status(), 'body' => $response->body()]);
+
+                // Handle specific error cases
+                if ($response->status() === 429) {
+                    $reply = 'I\'m currently receiving too many requests. Please try again in a moment.';
+                } elseif ($response->status() === 403) {
+                    $reply = 'There seems to be an issue with my configuration. Please contact support.';
+                } else {
+                    $reply = 'I\'m experiencing some technical difficulties right now. Please try again later.';
+                }
+            }
+
+            Log::info('Chatbot response generated', ['reply' => $reply]);
+            return response()->json(['reply' => $reply]);
+
+        } catch (\Exception $e) {
+            Log::error('Chatbot error', ['error' => $e->getMessage()]);
+            return response()->json(['reply' => 'I\'m experiencing some technical difficulties right now. Please try again later.']);
+        }
+    }
+=======
+    public function chat(Request $request)
+    {
+        $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+
+        $message = $request->input('message');
+        Log::info('Chatbot request received', ['message' => $message]);
+
+        try {
+            $apiKey = env('GEMINI_API_KEY');
+            if (!$apiKey) {
+                Log::error('Gemini API key not configured');
+                return response()->json(['reply' => 'I\'m experiencing some technical difficulties right now. Please try again later.']);
+            }
+
+            $payload = [
+                'contents' => [
+                    [
+                        'parts' => [
+                            [
+                                'text' => 'You are a helpful fitness coach AI for gym members. Keep responses concise and focused on fitness advice. ' . $message
+                            ]
+                        ]
+                    ]
+                ],
+                'generationConfig' => [
+                    'maxOutputTokens' => 300,
+                    'temperature' => 0.7,
+                ]
+            ];
+
+            Log::info('Sending request to Gemini API', ['payload' => $payload]);
+
+            $response = Http::post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' . $apiKey, $payload);
+
+            Log::info('Gemini API raw response', ['status' => $response->status(), 'body' => $response->body()]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                if (isset($data['candidates'][0]['content']['parts'][0]['text'])) {
+                    $reply = $data['candidates'][0]['content']['parts'][0]['text'];
+                } else {
+                    Log::error('Unexpected Gemini API response structure', ['response_data' => $data]);
+                    $reply = 'Sorry, I couldn\'t generate a response right now.';
+                }
+            } else {
+                $errorData = $response->json();
+                Log::error('Gemini API error', ['status' => $response->status(), 'body' => $response->body(), 'error_data' => $errorData]);
+
+                // Handle specific error cases
+                if ($response->status() === 429) {
+                    $reply = 'I\'m currently receiving too many requests. Please try again in a moment.';
+                } elseif ($response->status() === 403) {
+                    $reply = 'There seems to be an issue with my configuration. Please contact support.';
+                } else {
+                    $reply = 'I\'m experiencing some technical difficulties right now. Please try again later.';
+                }
+            }
+
+            Log::info('Chatbot response generated', ['reply' => $reply]);
+            return response()->json(['reply' => $reply]);
+
+        } catch (\Exception $e) {
+            Log::error('Chatbot exception caught', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            return response()->json(['reply' => 'I\'m experiencing some technical difficulties right now. Please try again later.']);
+        }
+    }

@@ -1,0 +1,89 @@
+/* Responsive Dashboard Styles */
+.dashboard-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.dashboard-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6;
+}
+
+.dashboard-card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200;
+}
+
+.dashboard-card-header {
+    @apply p-4 md:p-6 border-b border-gray-200 dark:border-gray-700;
+}
+
+.dashboard-card-body {
+    @apply p-4 md:p-6;
+}
+
+.dashboard-stat {
+    @apply flex items-center justify-between;
+}
+
+.dashboard-stat-value {
+    @apply text-2xl md:text-3xl font-bold text-gray-900 dark:text-white;
+}
+
+.dashboard-stat-label {
+    @apply text-sm text-gray-500 dark:text-gray-400;
+}
+
+.dashboard-progress {
+    @apply w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5;
+}
+
+.dashboard-progress-bar {
+    @apply bg-blue-600 h-2.5 rounded-full transition-all duration-300;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .dashboard-container {
+        @apply px-3;
+    }
+
+    .dashboard-card {
+        @apply mb-4;
+    }
+
+    .dashboard-stat-value {
+        @apply text-xl;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .dashboard-card {
+        @apply bg-gray-800 border-gray-700;
+    }
+}
+
+/* Hover effects */
+.dashboard-card:hover {
+    @apply transform -translate-y-1;
+}
+
+/* Animation for progress bars */
+@keyframes progress-bar-stripes {
+    0% {
+        background-position-x: 1rem;
+    }
+}
+
+.dashboard-progress-bar-animated {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+    animation: progress-bar-stripes 1s linear infinite;
+}
